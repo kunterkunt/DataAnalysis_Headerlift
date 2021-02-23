@@ -37,7 +37,7 @@ def main():
     dateStr="'{daysago}' and '{yesterday}'".format(daysago=daysago,yesterday=yesterday)
     queryStr='select "RptDate","AdtTitle",sum("RptRevenue") as Revenue from dbo."AdReport" join dbo."AdTag" on "RptAdtId" = "AdtId" where "RptDate" between {dateStr} group by "RptDate","AdtTitle"'.format(dateStr=dateStr)
     
-    connection=psycopg2.connect(database='HeaderLiftDB',user=***,password=***,host='35.205.135.216')
+    connection=psycopg2.connect(database='HeaderLiftDB',user=***,password=***,host=***)
     dfquery=pd.read_sql_query(queryStr,connection)
     connection.close()
     
@@ -85,7 +85,7 @@ def main():
             
     dfhighRev_adUnits_monday= dfadunit_new_monday[dfadunit_new_monday['adunit'].isin(listadunits_monday_HighRev_last)] 
     ##en son highRev df, hem mean rev 10 un üstünde hem de herbir adunitten 8 date de var 
-    listdeneme=[]         
+             
     listproblemAdUnits_monday=[]
     for i in listadunits_monday_HighRev_last:
         tempdf=dfhighRev_adUnits_monday[dfhighRev_adUnits_monday['adunit']==i]
@@ -119,9 +119,9 @@ def main():
                 
     dfproblemAdUnits_monday=dfhighRev_adUnits_monday[dfhighRev_adUnits_monday['adunit'].isin(listproblemAdUnits_monday)]
     
-    ##burdan sonra denemelerini yapacaksın
-    #dfproblemAdUnits_monday problemli adunitlerin olduğu sorted olmayan bir df
-    #listproblemAdUnits_monday'de problemli ad unitlerin olduğu liste
+    
+    #dfproblemAdUnits_monday is a data frame that has problematic ad units (not sorted yet )
+    #listproblemAdUnits_monday is the list that contains problematic ad units
     
     dictadunits={}
     for i in listproblemAdUnits_monday:
@@ -159,7 +159,7 @@ def main():
     dfproblemAdUnits_sorted_last_wednesday.to_excel(today+'_output.xlsx')
             
     
-    ##burda bitiyor denemen 
+   
     #dfproblemAdUnits_sorted_last_wednesday revenue loss'una göre sorted olan ad unitler
         
     ################################################################################## 
@@ -202,8 +202,7 @@ if __name__ == "__main__":
 
  
     
-#if __name__ == "__main__":
-#    main()   
+
     
  
     
@@ -259,51 +258,7 @@ if __name__ == "__main__":
 
 
 
-##aşağısı datayı görmek açısından denemeler
-#testlist=[]
-#for i in listadunits_monday:
-#    tempdf=dfadunit_new_monday[dfadunit_new_monday.adunit==i]
-#    if len(tempdf)<3:
-#        testlist.append(i)
-#        
-#testlist_only1=[]
-#for i in listadunits_monday:
-#    tempdf=dfadunit_new_monday[dfadunit_new_monday.adunit==i]
-#    if len(tempdf)==1:
-#        testlist_only1.append(i)
-#        
-#       
-#testlist_only17=[]        
-#for i in testlist_only1:
-#    tempdf=dfadunit_new_monday[dfadunit_new_monday.adunit==i]
-#    if len(tempdf[tempdf['date'].isin([date_final])])==1:
-#        testlist_only17.append(i)
-#        
-#testlist4=[]
-#for i in listadunits_monday:
-#    tempdf=dfadunit_new_monday[dfadunit_new_monday.adunit==i]
-#    if len(tempdf)==3:
-#        if len(tempdf[tempdf['date'].isin([date_final,date6,date5])])==3:
-#            testlist4.append(i)
-            
-##eğer 3 taneyse ve içinde 17 varsa 15-16-17 şeklinde            
-##235 element testlist            
-               
-     
-        
-    
-#testlist_onlyNot8=[]
-#for i in listadunits_highRevMonday:
-#    tempdf=dfhighRevMonday[dfhighRevMonday.adunit==i]
-#    if len(tempdf[tempdf['date'].isin([date_final,date0,date1,date2,date3,date4,date5,date6])])!=8:
-#        if len(tempdf[tempdf['date'].isin([date_final])])==1:
-#            testlist_onlyNot8.append(i)
-#        
-            
-##dfhighrevmonday'den sadece 17 olanları atabilirsin mesela            
-        
 
-#dfadunit_new_mondayy        
         
 
     
